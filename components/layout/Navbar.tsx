@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const NAV = [
   { name: "About", href: "/about" },
@@ -43,16 +44,36 @@ export default function Navbar() {
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-7 text-sm">
           {NAV.map((item) => (
-            <Link key={item.name} href={item.href} className="hover:opacity-80">
-              {item.name}
-            </Link>
+            <motion.div
+              key={item.name}
+              whileHover={{
+                scale: 1.12,
+                color: "#8b5cf6",
+                backgroundColor: "rgba(139,92,246,0.08)",
+              }}
+              transition={{ type: "spring", stiffness: 400, damping: 22 }}
+              style={{ borderRadius: "0.5rem" }}
+            >
+              <Link href={item.href} className="px-2 py-1 transition-colors">
+                {item.name}
+              </Link>
+            </motion.div>
           ))}
-          <Link
-            href="/register"
-            className="rounded-lg bg-white text-black px-3 py-2 font-medium hover:bg-neutral-200 transition"
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 2px 12px rgba(139,92,246,0.18)",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 22 }}
+            style={{ borderRadius: "0.5rem" }}
           >
-            Register
-          </Link>
+            <Link
+              href="/register"
+              className="rounded-lg bg-white text-black px-3 py-2 font-medium hover:bg-neutral-200 transition"
+            >
+              Register
+            </Link>
+          </motion.div>
         </div>
 
         {/* Mobile menu button */}
@@ -73,22 +94,41 @@ export default function Navbar() {
           <div className="mx-auto max-w-7xl px-4 py-4">
             <div className="grid gap-2 text-sm">
               {NAV.map((item) => (
-                <Link
+                <motion.div
                   key={item.name}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-md px-2 py-2 hover:bg-white/5"
+                  whileHover={{
+                    scale: 1.08,
+                    color: "#8b5cf6",
+                    backgroundColor: "rgba(139,92,246,0.08)",
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                  style={{ borderRadius: "0.5rem" }}
                 >
-                  {item.name}
-                </Link>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-md px-2 py-2 transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
               ))}
-              <Link
-                href="/register"
-                onClick={() => setOpen(false)}
-                className="mt-2 inline-flex rounded-md bg-white text-black px-3 py-2 font-medium hover:bg-neutral-200 transition"
+              <motion.div
+                whileHover={{
+                  scale: 1.08,
+                  boxShadow: "0 2px 12px rgba(139,92,246,0.18)",
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                style={{ borderRadius: "0.5rem" }}
               >
-                Register
-              </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setOpen(false)}
+                  className="mt-2 inline-flex rounded-md bg-white text-black px-3 py-2 font-medium hover:bg-neutral-200 transition"
+                >
+                  Register
+                </Link>
+              </motion.div>
             </div>
           </div>
         </div>

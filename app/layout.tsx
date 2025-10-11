@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { defaultMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
+import RightClickMenu from "@/components/ui/RightClickMenu";
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* pad for fixed nav */}
         <main id="main" className="pt-[64px]">{children}</main>
         <Footer />
+        <RightClickMenu />
       </body>
     </html>
   );

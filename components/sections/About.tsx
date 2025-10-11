@@ -1,6 +1,15 @@
+"use client";
+import { motion } from "framer-motion";
+
 export default function AboutSection() {
   return (
-    <section className="section bg-gradient-to-b from-black/30 to-transparent">
+    <motion.section
+      className="section bg-gradient-to-b from-black/30 to-transparent"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="container-x">
         <h2 className="mb-4">More Than a Summit—A Catalyst for Global Transformation</h2>
         <p className="mb-4">
@@ -31,6 +40,6 @@ export default function AboutSection() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

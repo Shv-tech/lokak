@@ -1,16 +1,31 @@
+"use client";
+import { motion } from "framer-motion";
+
 // app/about/page.tsx
 export default function AboutPage() {
   return (
     <div className="container-x section">
-      <header className="mb-8">
+      <motion.header
+        className="mb-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Building the Future of Responsible AI</h1>
         <p className="mt-3 text-lg text-neutral-300">
           Founded under the Office of the CEO at SHV Groups, Lokakṣema emerged from one conviction:
           artificial intelligence must serve humanity&apos;s welfare.
         </p>
-      </header>
+      </motion.header>
 
-      <section className="mt-12 space-y-6">
+      <motion.section
+        className="mt-12 space-y-6"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold">Why Lokakṣema?</h2>
         <div className="space-y-4 text-neutral-200">
           <p>
@@ -29,9 +44,15 @@ export default function AboutPage() {
           </p>
           <p>Lokakṣema 2026 is our response to these dualities.</p>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mt-12 grid md:grid-cols-2 gap-10">
+      <motion.section
+        className="mt-12 grid md:grid-cols-2 gap-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      >
         <div>
           <h2 className="text-2xl md:text-3xl font-semibold">Corporate Excellence Meets Global Convening</h2>
           <p className="mt-3 text-neutral-200">
@@ -56,9 +77,15 @@ export default function AboutPage() {
             <li><strong>Government Liaison Office:</strong> Coordination with ministries and international delegations.</li>
           </ul>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mt-12">
+      <motion.section
+        className="mt-12"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold">Four Principles Guide Everything We Do</h2>
         <div className="mt-4 grid md:grid-cols-4 gap-6">
           {[
@@ -73,9 +100,15 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mt-12">
+      <motion.section
+        className="mt-12"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold">Leadership Committed to Excellence</h2>
         <p className="mt-3 text-neutral-200">
           Prepared under the Office of the Chairman, SHV Groups<br />
@@ -86,7 +119,7 @@ export default function AboutPage() {
           diplomacy. We&apos;re supported by advisory council members spanning six continents, representing governments,
           universities, corporations, and civil society organizations.
         </p>
-      </section>
+      </motion.section>
     </div>
   );
 }

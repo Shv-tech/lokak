@@ -1,14 +1,29 @@
+"use client";
+import { motion } from "framer-motion";
+
 // app/hackathon/page.tsx
 export default function HackathonPage() {
   return (
     <div className="container-x section">
-      <header className="mb-8">
+      <motion.header
+        className="mb-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Utopian Space Global Hackathon-26</h1>
         <p className="mt-3 text-lg text-neutral-300">72 Hours. Global Teams. Humanity&apos;s Challenges. Your Solutions.</p>
         <p className="mt-1 text-neutral-400">AI-for-Humanity: Innovating for Global Well-being</p>
-      </header>
+      </motion.header>
 
-      <section className="space-y-4">
+      <motion.section
+        className="space-y-4"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold">The Innovation Engine of Lokakṣema 2026</h2>
         <p className="text-neutral-200">
           While the summit convenes leaders for dialogue and strategy, the hackathon generates practical, deployable AI solutions
@@ -17,9 +32,15 @@ export default function HackathonPage() {
         <p className="text-neutral-200">
           <strong>Our Promise:</strong> Top projects receive funding, incubator support, and pilot deployment partnerships.
         </p>
-      </section>
+      </motion.section>
 
-      <section className="mt-10">
+      <motion.section
+        className="mt-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold">Four Tracks, Infinite Impact</h2>
         <div className="mt-4 grid md:grid-cols-2 gap-6">
           {[
@@ -34,9 +55,15 @@ export default function HackathonPage() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mt-10 grid md:grid-cols-3 gap-6">
+      <motion.section
+        className="mt-10 grid md:grid-cols-3 gap-6"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+      >
         <div className="rounded-xl border border-white/10 bg-black/40 p-6">
           <h3 className="font-semibold">Designed for Excellence</h3>
           <ul className="mt-3 text-neutral-300 list-disc list-inside space-y-1">
@@ -61,7 +88,7 @@ export default function HackathonPage() {
             <li>Incubator fast-track & pilot partnerships</li>
           </ul>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }

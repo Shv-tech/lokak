@@ -1,15 +1,30 @@
+"use client";
+import { motion } from "framer-motion";
+
 // app/contact/page.tsx
 export default function ContactPage() {
   return (
     <div className="container-x section">
-      <header className="mb-8">
+      <motion.header
+        className="mb-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Let&apos;s Shape AI&apos;s Future Together</h1>
         <p className="mt-3 text-lg text-neutral-300">
           Whether you&apos;re interested in partnership, participation, or just learning more—we&apos;d love to hear from you.
         </p>
-      </header>
+      </motion.header>
 
-      <section className="grid lg:grid-cols-2 gap-10">
+      <motion.section
+        className="grid lg:grid-cols-2 gap-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+      >
         <div className="space-y-6">
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold">Get in Touch</h2>
@@ -79,7 +94,7 @@ export default function ContactPage() {
             Your information will be handled according to our Privacy Policy. We&apos;ll respond within 48 business hours.
           </p>
         </form>
-      </section>
+      </motion.section>
     </div>
   );
 }

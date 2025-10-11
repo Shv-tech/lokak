@@ -1,8 +1,17 @@
+"use client";
+import { motion } from "framer-motion";
+
 // app/sponsorship/page.tsx
 export default function SponsorshipPage() {
   return (
     <div className="container-x section">
-      <header className="mb-8">
+      <motion.header
+        className="mb-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Partner With Purpose</h1>
         <p className="mt-3 text-lg text-neutral-300">
           Position your organization at the forefront of responsible AI innovation.
@@ -10,9 +19,15 @@ export default function SponsorshipPage() {
         <p className="mt-1 text-neutral-400">
           Unparalleled visibility, strategic partnerships, and measurable ROI for sponsors committed to AI for humanity.
         </p>
-      </header>
+      </motion.header>
 
-      <section className="space-y-6">
+      <motion.section
+        className="space-y-6"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold">Why Sponsor Lokakṣema?</h2>
         <ul className="list-disc list-inside text-neutral-200 space-y-2">
           <li><strong>Global Visibility:</strong> 10,000+ attendees, 50+ Tier-1 media outlets.</li>
@@ -21,9 +36,15 @@ export default function SponsorshipPage() {
           <li><strong>Measurable Impact:</strong> Post-event ROI reporting.</li>
           <li><strong>Commercial Opportunities:</strong> Pilot partnerships, deal rooms, procurement channels.</li>
         </ul>
-      </section>
+      </motion.section>
 
-      <section className="mt-10">
+      <motion.section
+        className="mt-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold">Three Levels of Partnership</h2>
         <div className="mt-4 grid md:grid-cols-3 gap-6">
           {[
@@ -38,9 +59,15 @@ export default function SponsorshipPage() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mt-10 grid md:grid-cols-2 gap-10">
+      <motion.section
+        className="mt-10 grid md:grid-cols-2 gap-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+      >
         <div>
           <h2 className="text-2xl md:text-3xl font-semibold">Partnership Timeline</h2>
           <ol className="mt-4 list-decimal list-inside space-y-2 text-neutral-200">
@@ -61,9 +88,15 @@ export default function SponsorshipPage() {
             <li><strong>Methods:</strong> Wire, ACH, corporate check</li>
           </ul>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mt-10">
+      <motion.section
+        className="mt-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+      >
         <a
           href="/contact"
           className="inline-block rounded-xl bg-white text-black px-5 py-3 text-sm font-medium hover:bg-neutral-200 transition"
@@ -71,7 +104,7 @@ export default function SponsorshipPage() {
           Let&apos;s Build the Future of AI Together
         </a>
         <p className="mt-3 text-neutral-400">Contact: partnerships@lokaksema2026.org</p>
-      </section>
+      </motion.section>
     </div>
   );
 }

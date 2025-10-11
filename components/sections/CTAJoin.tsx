@@ -1,6 +1,15 @@
+"use client";
+import { motion } from "framer-motion";
+
 export default function CTAJoinSection() {
   return (
-    <section className="section">
+    <motion.section
+      className="section"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="container-x">
         <h2 className="mb-4">Your Voice Shapes AI&apos;s Future</h2>
         <p className="text-neutral-200 max-w-3xl">
@@ -17,6 +26,6 @@ export default function CTAJoinSection() {
           </a>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

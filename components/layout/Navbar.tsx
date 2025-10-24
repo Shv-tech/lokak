@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 
@@ -17,6 +17,7 @@ const NAV = [
 ];
 
 export default function Navbar({ startAnimation }: { startAnimation?: boolean }) {
+	const menuRef = useRef<HTMLDivElement>(null);
 	const [open, setOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
 	const [show, setShow] = useState(false);
@@ -33,6 +34,17 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 		onScroll();
 		window.addEventListener("scroll", onScroll);
 		return () => window.removeEventListener("scroll", onScroll);
+	}, []);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+				setOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
 	const onNavClick = (href: string) => (e: React.MouseEvent) => {
@@ -63,6 +75,7 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 		<AnimatePresence>
 			{show && (
 				<motion.nav
+					ref={menuRef}
 					initial={{
 						opacity: 0,
 						width: "0%",
@@ -87,12 +100,7 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 						paddingTop: { delay: 0.3, duration: 0.5, ease: [0.4, 0, 0.2, 1] },
 						paddingBottom: { delay: 0.3, duration: 0.5, ease: [0.4, 0, 0.2, 1] },
 					}}
-					className="fixed top-4 left-1/2 z-[60] -translate-x-1/2 -translate-y-2 bg-white text-black rounded-t-2xl rounded-b-2xl shadow-2xl px-16 h-16 flex items-center justify-between max-w-7xl border border-neutral-200"
-					style={{
-						backdropFilter: "blur(16px)",
-						boxShadow: "0 16px 48px 0 rgba(31, 38, 135, 0.18)",
-						overflow: "hidden",
-					}}
+					className="fixed top-4 left-1/2 z-[60] -translate-x-1/2 -translate-y-2 bg-white text-black rounded-t-2xl rounded-b-2xl shadow-2xl px-4 sm:px-16 h-16 flex items-center justify-between max-w-7xl border border-neutral-200 w-[95%]"
 				>
 					<motion.div
 						className="flex items-center gap-3"
@@ -108,9 +116,18 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 							<Image
 								src="/images/logo.png"
 								alt="Lokaksema"
+								width={40}
+								height={40}
+								className="h-10 w-10 block lg:hidden"
+								priority
+							/>
+							<Image
+								src="/images/logo.png"
+								alt="Lokaksema"
 								width={96}
 								height={24}
-								className="h-6 w-auto"
+								className="h-6 w-auto hidden lg:block"
+								priority
 							/>
 							<span className="hidden sm:inline font-semibold tracking-tight">
 								Lokaksema 2026
@@ -165,7 +182,7 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 					<motion.button
 						aria-label="Open menu"
 						className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 hover:bg-neutral-100"
-						onClick={() => setOpen((v) => !v)}
+						onClick={() => setOpen(!open)}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ delay: 1.05, duration: 0.5 }}
@@ -178,53 +195,63 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 							/>
 						</svg>
 					</motion.button>
-					{open && (
-						<div className="absolute top-full left-0 w-full rounded-b-2xl border-t border-neutral-200 bg-white shadow-lg">
-							<div className="mx-auto max-w-3xl px-4 py-4">
-								<div className="grid gap-2 text-sm">
-									{NAV.map((item) => (
+
+					<AnimatePresence>
+						{open && (
+							<motion.div
+								initial={{ opacity: 0, y: -10 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: -10 }}
+								transition={{ duration: 0.2 }}
+								className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-xl border border-neutral-200 shadow-lg z-[70]"
+							>
+								<div className="w-full px-4 py-4">
+									<div className="grid gap-2 text-sm">
+										{NAV.map((item) => (
+											<motion.div
+												key={item.name}
+												whileHover={{
+													scale: 1.02,
+													color: "#8b5cf6",
+													backgroundColor: "rgba(139,92,246,0.08)",
+												}}
+												transition={{ type: "spring", stiffness: 400, damping: 22 }}
+												style={{ borderRadius: "0.5rem" }}
+											>
+												<Link
+													href={item.href}
+													onClick={e => { setOpen(false); onNavClick(item.href)(e); }}
+													className="block rounded-md px-2 py-2 transition-colors"
+												>
+													{item.name}
+												</Link>
+											</motion.div>
+										))}
 										<motion.div
-											key={item.name}
 											whileHover={{
-												scale: 1.08,
-												color: "#8b5cf6",
-												backgroundColor: "rgba(139,92,246,0.08)",
+												scale: 1.02,
+												boxShadow: "0 2px 12px rgba(139,92,246,0.18)",
 											}}
 											transition={{ type: "spring", stiffness: 400, damping: 22 }}
 											style={{ borderRadius: "0.5rem" }}
 										>
 											<Link
-												href={item.href}
-												onClick={e => { setOpen(false); onNavClick(item.href)(e); }}
-												className="rounded-md px-2 py-2 transition-colors"
+												href="/register"
+												onClick={e => { setOpen(false); onNavClick("/register")(e); }}
+												className="mt-2 block rounded-md bg-black text-white px-3 py-2 font-medium hover:bg-neutral-800 transition text-center"
 											>
-												{item.name}
+												Register
 											</Link>
 										</motion.div>
-									))}
-									<motion.div
-										whileHover={{
-											scale: 1.08,
-											boxShadow: "0 2px 12px rgba(139,92,246,0.18)",
-										}}
-										transition={{ type: "spring", stiffness: 400, damping: 22 }}
-										style={{ borderRadius: "0.5rem" }}
-									>
-										<Link
-											href="/register"
-											onClick={e => { setOpen(false); onNavClick("/register")(e); }}
-											className="mt-2 inline-flex rounded-md bg-black text-white px-3 py-2 font-medium hover:bg-neutral-800 transition"
-										>
-											Register
-										</Link>
-									</motion.div>
+									</div>
 								</div>
-							</div>
-						</div>
-					)}
+							</motion.div>
+						)}
+					</AnimatePresence>
 				</motion.nav>
 			)}
 		</AnimatePresence>
 	);
 }
+
 

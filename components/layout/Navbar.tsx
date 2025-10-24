@@ -16,7 +16,7 @@ const NAV = [
 	{ name: "Contact", href: "/contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ startAnimation }: { startAnimation?: boolean }) {
 	const [open, setOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
 	const [show, setShow] = useState(false);
@@ -24,10 +24,9 @@ export default function Navbar() {
 	const router = useRouter();
 
 	useEffect(() => {
-		// Wait for splash screen to finish (match SplashScreen timing: 3s + 0.6s fade)
-		const timer = setTimeout(() => setShow(true), 3400);
+		const timer = setTimeout(() => setShow(true), 5000);
 		return () => clearTimeout(timer);
-	}, []);
+	}, [startAnimation]);
 
 	useEffect(() => {
 		const onScroll = () => setScrolled(window.scrollY > 10);
@@ -46,13 +45,12 @@ export default function Navbar() {
 		}, 300);
 	};
 
-	// Add variants for staggered animation
 	const navButtonsVariants = {
 		hidden: {},
 		visible: {
 			transition: {
 				staggerChildren: 0.08,
-				delayChildren: 1.05, // match previous delay for container
+				delayChildren: startAnimation ? 0.3 : 0.6,
 			},
 		},
 	};
@@ -119,7 +117,6 @@ export default function Navbar() {
 							</span>
 						</Link>
 					</motion.div>
-					{/* Staggered nav buttons */}
 					<motion.div
 						className="hidden lg:flex items-center gap-7 text-sm"
 						variants={navButtonsVariants}
@@ -165,7 +162,6 @@ export default function Navbar() {
 							</Link>
 						</motion.div>
 					</motion.div>
-					{/* Mobile menu button */}
 					<motion.button
 						aria-label="Open menu"
 						className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 hover:bg-neutral-100"
@@ -182,7 +178,6 @@ export default function Navbar() {
 							/>
 						</svg>
 					</motion.button>
-					{/* Mobile panel */}
 					{open && (
 						<div className="absolute top-full left-0 w-full rounded-b-2xl border-t border-neutral-200 bg-white shadow-lg">
 							<div className="mx-auto max-w-3xl px-4 py-4">
@@ -232,3 +227,4 @@ export default function Navbar() {
 		</AnimatePresence>
 	);
 }
+

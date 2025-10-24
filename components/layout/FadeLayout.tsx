@@ -1,36 +1,45 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function FadeLayout({ children, isFading }: { children: React.ReactNode; isFading: boolean }) {
     const pathname = usePathname();
-    const [shouldUnmount, setShouldUnmount] = useState(false);
+    const [delayedFade, setDelayedFade] = useState(false);
+    const [shouldRender, setShouldRender] = useState(true);
 
-    if (shouldUnmount) return null;
+    useEffect(() => {
+        let fadeTimer: NodeJS.Timeout;
+        let unmountTimer: NodeJS.Timeout;
 
-    const variants = {
-        visible: { opacity: 1 },
-        hidden: { opacity: 0 }
-    };
+        if (isFading) {
+            fadeTimer = setTimeout(() => {
+                setDelayedFade(true);
+            }, 10000);
+
+            unmountTimer = setTimeout(() => {
+                setShouldRender(false);
+            }, 10300);
+        }
+
+        return () => {
+            clearTimeout(fadeTimer);
+            clearTimeout(unmountTimer);
+        };
+    }, [isFading]);
+
+    if (!shouldRender) return null;
 
     return (
-        <motion.div
-            key={pathname}
-            initial="visible"
-            animate={isFading ? "hidden" : "visible"}
-            variants={variants}
-            transition={{ 
-                duration: 0.3,
-                ease: "easeInOut",
-                delay: isFading ? 10 : 0  // 10 second delay before fade starts
-            }}
-            onAnimationComplete={() => {
-                if (isFading) {
-                    setShouldUnmount(true);
-                }
-            }}
-        >
-            {children}
-        </motion.div>
+        <AnimatePresence mode="wait" onExitComplete={() => setShouldRender(false)}>
+            <motion.div
+                key={pathname}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: delayedFade ? 0 : 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+                {children}
+            </motion.div>
+        </AnimatePresence>
     );
 }

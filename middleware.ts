@@ -14,6 +14,12 @@ export function middleware(req: NextRequest) {
     req.nextUrl.hostname === "localhost" || req.nextUrl.hostname === "127.0.0.1";
 
   // Content Security Policy — permissive to allow future embeds; tighten as needed
+  // Allow backend on localhost during development so client-side fetches to
+  // http://localhost:4000 are permitted. In production this remains strict.
+  const connectSrc = isLocalhost
+    ? "connect-src 'self' https: http://localhost:4000 http://127.0.0.1:4000"
+    : "connect-src 'self' https:";
+
   const csp = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
@@ -21,7 +27,7 @@ export function middleware(req: NextRequest) {
     "img-src 'self' data: blob: https:",
     "font-src 'self' data: https:",
     "media-src 'self' data: blob: https:",
-    "connect-src 'self' https:",
+    connectSrc,
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",

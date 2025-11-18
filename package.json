@@ -14,6 +14,9 @@
     "node": ">=18.18.0"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.0",
+    "@react-three/drei": "^9.4.0",
+    "@react-three/fiber": "^8.18.0",
     "framer-motion": "^11.18.2",
     "next": "^14.2.33",
     "next-mdx-remote": "^5.0.0",
@@ -22,11 +25,10 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
+    "three": "^0.181.1",
     "vfile": "^6.0.3",
     "vfile-message": "^4.0.3",
-    "zod": "^3.25.76",
-    "@gsap/react": "^2.1.0"
-
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/node": "^22.18.8",

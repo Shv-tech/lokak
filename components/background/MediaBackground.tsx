@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ReactNode } from "react";
+import dynamic from "next/dynamic";
+
+// lotus is a client-heavy component; lazy-load to avoid SSR issues
+const Lotus3D = dynamic(() => import("./Lotus3D"), { ssr: false });
 
 interface MediaBackgroundProps {
   videoSrc: string;
@@ -81,7 +85,7 @@ export default function MediaBackground({
         {!prefersReducedMotion && (
           <video
             ref={videoRef}
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover z-20"
             autoPlay
             muted
             loop
@@ -111,7 +115,7 @@ export default function MediaBackground({
           </>
         )}
 
-        <div className="relative z-10 h-full flex items-center">{children}</div>
+        <div className="relative z-30 h-full flex items-center">{children}</div>
         <div ref={sentinelRef} className="absolute inset-x-0 bottom-0 h-1" />
       </section>
 
@@ -129,7 +133,17 @@ export default function MediaBackground({
         }
       >
         {overlay && <div className="absolute inset-x-0 -top-10 h-10 overlay-bottom pointer-events-none" />}
-        <div className="relative">{after}</div>
+
+        {/* Lotus sits with the background image and is fixed so it doesn't move on scroll.
+            Render it unconditionally so it doesn't flicker/disappear when the sentinel
+            intersection state changes. It remains pointer-events-none and z-0. */}
+        <div className="fixed inset-x-0 bottom-0 flex items-end justify-center pointer-events-none z-0">
+          <div className="relative -mb-6">
+            <Lotus3D />
+          </div>
+        </div>
+
+        <div className="relative z-10">{after}</div>
       </section>
     </>
   );

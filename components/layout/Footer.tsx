@@ -22,7 +22,7 @@ const LEGAL = [
 
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-white/10 bg-[#07080f]">
+    <footer className="relative z-30 mt-24 border-t border-white/10 bg-[#07080f]">
       <div className="mx-auto max-w-7xl px-4 py-14">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="space-y-3">

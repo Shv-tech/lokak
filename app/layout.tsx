@@ -44,17 +44,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<link rel="icon" href="/favicon.ico" sizes="any" />
 				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 				{/* Preload above-the-fold media for faster LCP */}
-				<link rel="preload" as="image" href="/media/hero-fallback.jpg" />
+				<link rel="preload" as="image" href="/media/hero-fallback.webp" />
 				<link rel="preload" as="video" href="/media/hero.mp4" type="video/mp4" />
-				{/* Poppins font import */}
+				{/* Site fonts: Inter (UI), Cormorant Garamond (headings), Playfair Display (quotes) */}
 				<link
-					href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+					href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
 					rel="stylesheet"
 				/>
 				{/* Structured data */}
 				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 			</head>
-			<body className="bg-[#0a0b12] text-white antialiased font-poppins">
+			<body className="bg-[#0a0b12] text-white antialiased">
 				{/* Skip link for a11y */}
 				<a
 					href="#main"

@@ -25,8 +25,8 @@ export default function HomeLayout() {
       {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       <MediaBackground
         videoSrc="/media/hero.mp4"
-        imageSrc="/media/hero-fallback.jpg"
-        poster="/media/hero-fallback.jpg"
+        imageSrc="/media/hero-fallback.webp"
+        poster="/media/hero-fallback.webp"
         height="100svh"
         overlay
         fixedImage

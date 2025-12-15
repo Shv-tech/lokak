@@ -5,9 +5,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ReactNode } from "react";
 import dynamic from "next/dynamic";
 
-// lotus is a client-heavy component; lazy-load to avoid SSR issues
-const Lotus3D = dynamic(() => import("./Lotus3D"), { ssr: false });
-
 interface MediaBackgroundProps {
   videoSrc: string;
   imageSrc: string;
@@ -20,6 +17,8 @@ interface MediaBackgroundProps {
   switchRootMargin?: string;
   fixedImage?: boolean;
   startAnimation?: boolean;
+  /** When false, Lotus3D will not be imported or rendered (saves client resources) */
+  showLotus?: boolean;
 }
 
 export default function MediaBackground({
@@ -34,6 +33,7 @@ export default function MediaBackground({
   switchRootMargin = "-50% 0px -50% 0px",
   fixedImage = true,
   startAnimation = false,
+  showLotus = true,
 }: MediaBackgroundProps) {
   const [showImageBg, setShowImageBg] = useState(false);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
@@ -78,6 +78,13 @@ export default function MediaBackground({
       return () => io.disconnect();
     }
   }, [startAnimation]);
+
+  // Dynamically import Lotus3D only when requested. Placing dynamic inside the
+  // component and guarded by `showLotus` prevents the module from being fetched
+  // when we want to hide it entirely.
+  const Lotus3D = showLotus
+    ? (useMemo(() => dynamic(() => import("./Lotus3D"), { ssr: false }), []) as any)
+    : null;
 
   return (
     <>
@@ -137,11 +144,13 @@ export default function MediaBackground({
         {/* Lotus sits with the background image and is fixed so it doesn't move on scroll.
             Render it unconditionally so it doesn't flicker/disappear when the sentinel
             intersection state changes. It remains pointer-events-none and z-0. */}
-        <div className="fixed inset-x-0 bottom-0 flex items-end justify-center pointer-events-none z-0">
-          <div className="relative -mb-6">
-            <Lotus3D />
+        {showLotus && (
+          <div className="fixed inset-x-0 bottom-0 flex items-end justify-center pointer-events-none z-0">
+            <div className="relative -mb-6">
+              {Lotus3D ? <Lotus3D /> : null}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="relative z-10">{after}</div>
       </section>

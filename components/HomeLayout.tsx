@@ -51,6 +51,7 @@ export default function HomeLayout() {
         height="100svh"
         overlay
         fixedImage
+        showLotus={false}
         className=""
         after={
           <>

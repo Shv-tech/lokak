@@ -22,23 +22,23 @@ export default function RegistrationForm() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // basic client validation
+    
     if (!state.fullName || !state.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)) {
       setStatus("err");
       return;
     }
     setStatus("loading");
     try {
-      // Prefer explicit env var; otherwise try a sensible local-dev fallback to port 4000
+      
       const envBase = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
       let url = "";
       if (envBase) {
         url = envBase.replace(/\/$/, "") + "/api/register";
       } else if (typeof window !== "undefined") {
-        // If running locally, try the backend at the same host on port 4000
+        
         const proto = window.location.protocol;
         const host = (window.location.hostname || "localhost");
-        url = `${proto}//${host}:4000/api/register`;
+        url = `${proto}//${host}/api/register`;
       } else {
         url = `/api/register`;
       }
@@ -53,12 +53,12 @@ export default function RegistrationForm() {
         setStatus("ok");
         setState({ fullName: "", email: "", phone: "", organization: "", role: "", ticketType: "General", notes: "" });
       } else {
-        // Try to surface server-provided error messages
+        
         try {
           const body = await res.json();
           console.warn('Registration failed', body);
         } catch (e) {
-          // ignore
+          
         }
         setStatus("err");
       }

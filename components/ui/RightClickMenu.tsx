@@ -21,7 +21,7 @@ export default function RightClickMenu() {
       setVisible(true);
     };
     const handleClick = (e: MouseEvent) => {
-      // Hide if clicking outside menu
+      
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setVisible(false);
       }

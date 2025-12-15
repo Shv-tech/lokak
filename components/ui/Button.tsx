@@ -6,18 +6,18 @@ type Variant = "filled" | "outline";
 type ButtonLinkProps = {
   as?: "a";
   href: string;
-  /** Preferred prop */
+  
   variant?: Variant;
-  /** Back-compat with earlier usage */
+  
   ["data-variant"]?: Variant;
   className?: string;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
 type ButtonButtonProps = {
   as: "button";
-  /** Preferred prop */
+  
   variant?: Variant;
-  /** Back-compat with earlier usage */
+  
   ["data-variant"]?: Variant;
   className?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
@@ -42,7 +42,7 @@ export default function Button(props: Props) {
     (chosenVariant === "outline" ? outline : filled);
 
   if ("as" in props && props.as === "button") {
-    // strip our custom props before spreading
+    
     const { as, variant, ["data-variant"]: _dv, className: _c, ...rest } =
       props as ButtonButtonProps & Record<string, unknown>;
     return <button {...rest} className={className} />;

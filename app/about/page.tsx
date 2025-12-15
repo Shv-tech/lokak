@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-// app/about/page.tsx
+
 export default function AboutPage() {
   return (
     <div className="container-x section">

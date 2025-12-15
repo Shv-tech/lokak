@@ -69,7 +69,7 @@ export default function FeaturedTracksSection() {
               variants={itemVariants}
               style={{ willChange: 'auto' }}
             >
-              {/* Animated background accent */}
+              {}
               <div
                 className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-purple-500/0 to-purple-500/0 group-hover:from-purple-500/10 group-hover:via-purple-500/5 group-hover:to-purple-500/20 transition-all duration-300"
               />

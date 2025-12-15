@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function CardGlow() {
   useEffect(() => {
-    // Use event delegation so dynamically-added cards are supported.
+    
     const onMove = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;

@@ -1,4 +1,4 @@
-// lib/constants.ts
+
 
 export const NAV_ITEMS = [
   { name: "About", href: "/about" },
@@ -39,7 +39,7 @@ export const SUMMIT = {
 } as const;
 
 export const SOCIALS = [
-  // Replace with real links when ready
+  
   { name: "X", href: "https://x.com/", handle: "@lokaksema2026" },
   { name: "LinkedIn", href: "https://www.linkedin.com/", handle: "Lokakṣema 2026" },
   { name: "YouTube", href: "https://www.youtube.com/", handle: "Lokakṣema" },

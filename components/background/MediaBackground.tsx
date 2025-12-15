@@ -17,7 +17,7 @@ interface MediaBackgroundProps {
   switchRootMargin?: string;
   fixedImage?: boolean;
   startAnimation?: boolean;
-  /** When false, Lotus3D will not be imported or rendered (saves client resources) */
+  
   showLotus?: boolean;
 }
 
@@ -79,8 +79,8 @@ export default function MediaBackground({
     }
   }, [startAnimation, switchRootMargin]);
 
-  // Dynamically import Lotus3D only when requested. Wrap dynamic import in
-  // useMemo (called unconditionally) so React Hooks rules are respected.
+  
+  
   const Lotus3D = useMemo(() => {
     if (!showLotus) return null;
     return dynamic(() => import("./Lotus3D"), { ssr: false });
@@ -141,9 +141,7 @@ export default function MediaBackground({
       >
         {overlay && <div className="absolute inset-x-0 -top-10 h-10 overlay-bottom pointer-events-none" />}
 
-        {/* Lotus sits with the background image and is fixed so it doesn't move on scroll.
-            Render it unconditionally so it doesn't flicker/disappear when the sentinel
-            intersection state changes. It remains pointer-events-none and z-0. */}
+        {}
         {showLotus && (
           <div className="fixed inset-x-0 bottom-0 flex items-end justify-center pointer-events-none z-0">
             <div className="relative -mb-6">

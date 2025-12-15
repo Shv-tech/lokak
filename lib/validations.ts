@@ -1,14 +1,14 @@
-// lib/validations.ts
-// Install: npm i zod
+
+
 import { z } from "zod";
 
-/** Newsletter */
+
 export const newsletterSchema = z.object({
   email: z.string().email("Valid email required"),
 });
 export type NewsletterInput = z.infer<typeof newsletterSchema>;
 
-/** Contact */
+
 export const contactSchema = z.object({
   name: z.string().min(2, "Name required"),
   org: z.string().optional().or(z.literal("")),
@@ -24,7 +24,7 @@ export const contactSchema = z.object({
 });
 export type ContactInput = z.infer<typeof contactSchema>;
 
-/** Sponsorship inquiry */
+
 export const sponsorInquirySchema = z.object({
   org: z.string().min(2, "Organization required"),
   contact: z.string().min(2, "Primary contact required"),
@@ -41,11 +41,11 @@ export const sponsorInquirySchema = z.object({
     "Custom Package",
   ]),
   notes: z.string().optional().or(z.literal("")),
-  intent: z.string().optional(), // passthrough for API routing, if needed
+  intent: z.string().optional(), 
 });
 export type SponsorInquiryInput = z.infer<typeof sponsorInquirySchema>;
 
-/** Helper to parse & validate a Next.js API/Route Handler JSON body */
+
 export async function parseRequestBody<T>(
   req: Request,
   schema: z.ZodSchema<T>

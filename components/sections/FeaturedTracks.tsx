@@ -2,17 +2,50 @@
 import { motion } from "framer-motion";
 
 export default function FeaturedTracksSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  };
+
   return (
     <motion.section
       className="section"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div className="container-x">
-        <h2 className="mb-6">Three Pathways to Responsible AI</h2>
-        <div className="grid md:grid-cols-3 gap-6">
+        <motion.h2
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-6"
+        >
+          Three Pathways to Responsible AI
+        </motion.h2>
+        <motion.div
+          className="grid md:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {[
             {
               title: "Technical & Research Deep Dive",
@@ -32,17 +65,28 @@ export default function FeaturedTracksSection() {
           ].map((track, i) => (
             <motion.div
               key={i}
-              className="rounded-xl bg-black/40 p-6 border border-white/10"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+              className="rounded-xl bg-black/40 p-6 border border-white/10 cursor-pointer relative overflow-hidden group"
+              variants={itemVariants}
+              style={{ willChange: 'auto' }}
             >
-              <h3 className="text-lg font-semibold">{track.title}</h3>
-              <p className="mt-2 text-neutral-300">{track.description}</p>
+              {/* Animated background accent */}
+              <div
+                className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-purple-500/0 to-purple-500/0 group-hover:from-purple-500/10 group-hover:via-purple-500/5 group-hover:to-purple-500/20 transition-all duration-300"
+              />
+              
+              <h3 
+                className="text-lg font-semibold relative z-10"
+              >
+                {track.title}
+              </h3>
+              <p 
+                className="mt-2 text-neutral-300 relative z-10"
+              >
+                {track.description}
+              </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

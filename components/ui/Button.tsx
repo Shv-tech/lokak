@@ -26,9 +26,9 @@ type Props = ButtonLinkProps | ButtonButtonProps;
 
 export default function Button(props: Props) {
   const base =
-    "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition";
-  const filled = "bg-white text-black hover:bg-neutral-200";
-  const outline = "border border-white/30 hover:bg-white hover:text-black";
+    "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-95";
+  const filled = "bg-white text-black hover:bg-neutral-100";
+  const outline = "border border-white/30 hover:bg-white hover:text-black hover:border-white/50";
 
   const chosenVariant: Variant =
     (("variant" in props && props.variant) ||

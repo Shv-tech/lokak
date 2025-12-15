@@ -46,9 +46,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				{/* Preload above-the-fold media for faster LCP */}
 				<link rel="preload" as="image" href="/media/hero-fallback.webp" />
 				<link rel="preload" as="video" href="/media/hero.mp4" type="video/mp4" />
-				{/* Site fonts: Inter (UI), Cormorant Garamond (headings), Playfair Display (quotes) */}
+				{/* Site fonts: Poppins */}
 				<link
-					href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+					href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
 					rel="stylesheet"
 				/>
 				{/* Structured data */}

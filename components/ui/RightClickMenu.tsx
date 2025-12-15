@@ -50,7 +50,7 @@ export default function RightClickMenu() {
             zIndex: 1000,
             pointerEvents: "auto",
           }}
-          className="rounded-xl bg-black/90 border border-white/10 shadow-soft min-w-[160px] py-2"
+          className="rounded-xl card-rainbow no-rainbow bg-black/90 border border-white/10 shadow-soft min-w-[160px] py-2"
         >
           {MENU_ITEMS.map((item) => (
             <a

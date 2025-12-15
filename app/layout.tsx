@@ -10,6 +10,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { defaultMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
 import RightClickMenu from "@/components/ui/RightClickMenu";
+import CardGlow from "@/components/ui/CardGlow";
 import AppShell from "@/components/AppShell"; // new wrapper
 import SplashScreen from "@/components/SplashScreen"; // adjust path if needed
 import { useState, useEffect } from "react";
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				</AnimatePresence>
 
 				<AppShell>
+					<CardGlow />
 					<Navbar />
 					{/* pad for fixed nav */}
 					<main id="main">{children}</main>

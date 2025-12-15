@@ -49,7 +49,7 @@ export default function HackathonPage() {
             ["Public Safety & Humanitarian Response", "Disaster prediction, cybersecurity, humanitarian logistics."],
             ["Open Innovation", "Bold ideas pushing boundaries for social good."],
           ].map(([title, desc]) => (
-            <div key={title} className="rounded-xl border border-white/10 bg-black/40 p-6">
+            <div key={title} className="rounded-xl card-rainbow bg-black/40 p-6">
               <h3 className="font-semibold">{title}</h3>
               <p className="mt-2 text-neutral-300">{desc}</p>
             </div>
@@ -64,7 +64,7 @@ export default function HackathonPage() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
       >
-        <div className="rounded-xl border border-white/10 bg-black/40 p-6">
+        <div className="rounded-xl card-rainbow bg-black/40 p-6">
           <h3 className="font-semibold">Designed for Excellence</h3>
           <ul className="mt-3 text-neutral-300 list-disc list-inside space-y-1">
             <li>Open to 18+, teams of 2–5</li>
@@ -72,7 +72,7 @@ export default function HackathonPage() {
             <li>Hybrid: on-site + global remote</li>
           </ul>
         </div>
-        <div className="rounded-xl border border-white/10 bg-black/40 p-6">
+        <div className="rounded-xl card-rainbow bg-black/40 p-6">
           <h3 className="font-semibold">What You&apos;ll Submit</h3>
           <ul className="mt-3 text-neutral-300 list-disc list-inside space-y-1">
             <li>Code repository (MIT/Apache 2.0)</li>
@@ -80,7 +80,7 @@ export default function HackathonPage() {
             <li>3–5 minute demo video</li>
           </ul>
         </div>
-        <div className="rounded-xl border border-white/10 bg-black/40 p-6">
+        <div className="rounded-xl card-rainbow bg-black/40 p-6">
           <h3 className="font-semibold">Judging & Prizes</h3>
           <ul className="mt-3 text-neutral-300 list-disc list-inside space-y-1">
             <li>Global jury of 15–20</li>

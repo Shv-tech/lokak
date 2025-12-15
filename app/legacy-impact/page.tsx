@@ -47,7 +47,7 @@ export default function LegacyImpactPage() {
             ["Global Advisory Council", "15–18 members; ethics letters, grant review, strategic advice; geographic & gender balance."],
             ["Regional Chapters & Community Platform", "Hubs across continents + digital platform; target 50,000+ members by 2028."],
           ].map(([title, desc]) => (
-            <div key={title} className="rounded-xl border border-white/10 bg-black/40 p-6">
+            <div key={title} className="rounded-xl card-rainbow bg-black/40 p-6\">
               <h3 className="font-semibold">{title}</h3>
               <p className="mt-2 text-neutral-300">{desc}</p>
             </div>

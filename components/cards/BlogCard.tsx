@@ -14,7 +14,7 @@ export default function BlogCard({
   return (
     <Link
       href={`/blog/${slug}`}
-      className="block rounded-xl border border-white/10 bg-black/30 p-6 transition-all duration-300 hover:bg-black/50 hover:border-white/30 hover:shadow-lg hover:-translate-y-1"
+      className="block rounded-xl card-rainbow bg-black/30 p-6 transition-all duration-300 hover:bg-black/50 hover:shadow-lg hover:-translate-y-1"
     >
       <div className="text-xs text-neutral-400">{new Date(date).toLocaleDateString()}</div>
       <h3 className="mt-2 text-lg font-semibold">{title}</h3>

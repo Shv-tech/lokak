@@ -371,3 +371,71 @@ button, a, input, textarea, select {
 .group-hover\:text-purple-400:hover {
   color: #a78bfa;
 }
+
+/* Rainbow card border with moving gradient */
+@keyframes card-rainbow-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.card-rainbow {
+  transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-rainbow:hover {
+  background: linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(255, 127, 0, 0.05), rgba(255, 255, 0, 0.05), rgba(0, 255, 0, 0.05), rgba(0, 0, 255, 0.05), rgba(75, 0, 130, 0.05), rgba(148, 0, 211, 0.05), rgba(255, 0, 0, 0.05));
+  background-size: 200% 100%;
+  animation: card-rainbow-gradient 3s ease infinite;
+  box-shadow: 
+    0 0 2px #ff0000,
+    0 0 4px #ff7f00,
+    0 0 6px #00ff00,
+    0 0 8px #0000ff,
+    0 0 10px #9400d3,
+    inset 0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+/* Opt-out modifier for elements that should keep their solid background */
+.card-rainbow.no-rainbow,
+.card-rainbow.no-rainbow:hover {
+  background: rgba(0,0,0,0.9) !important;
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+/* Cursor-following glow (uses --x and --y set by CardGlow) */
+.card-rainbow {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-rainbow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(139,92,246,0.28) 0%, rgba(139,92,246,0.14) 12%, transparent 40%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+  mix-blend-mode: screen;
+}
+
+.card-rainbow:hover::before {
+  opacity: 1;
+}
+
+.card-rainbow > * {
+  position: relative;
+  z-index: 1;
+}

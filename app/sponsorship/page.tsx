@@ -52,7 +52,7 @@ export default function SponsorshipPage() {
             ["Gold — The Innovators", "$50,000–$75,000", "Panel slot, prominent branding, 12 passes, 25 sqm booth, roundtables, lounge access, co-sponsor track, track branding, highlights, recruitment list."],
             ["Silver — The Partners", "$20,000–$30,000", "Logo listing, 6 passes, 12 sqm booth, receptions access, publications, social media recognition, footer logo, certificate."],
           ].map(([tier, price, details]) => (
-            <div key={tier} className="rounded-xl border border-white/10 bg-black/40 p-6">
+            <div key={tier} className="rounded-xl card-rainbow bg-black/40 p-6\">
               <h3 className="font-semibold">{tier}</h3>
               <p className="mt-1 text-sm text-neutral-400">Investment: {price}</p>
               <p className="mt-3 text-neutral-300">{details}</p>

@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-
+// app/legacy-impact/page.tsx
 export default function LegacyImpactPage() {
   return (
     <div className="container-x section">

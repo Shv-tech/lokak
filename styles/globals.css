@@ -1,4 +1,4 @@
-
+/* Import Poppins font if not already imported in <head> */
 html, body {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
   margin: 0;

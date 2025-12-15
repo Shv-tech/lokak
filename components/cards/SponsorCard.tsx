@@ -3,7 +3,7 @@ import Image from "next/image";
 type Sponsor = {
   name: string;
   tier: "Platinum" | "Gold" | "Silver" | string;
-  logo: string; 
+  logo: string; // /images/sponsors/xyz.svg
   href?: string;
 };
 

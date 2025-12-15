@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-
+// app/contact/page.tsx
 export default function ContactPage() {
   return (
     <div className="container-x section">
@@ -59,7 +59,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {}
+        {/* Simple form shell — wire to /api/contact later */}
         <form className="rounded-xl card-rainbow bg-black/40 p-6 grid gap-4">
           <h2 className="text-xl font-semibold">Send Us a Message</h2>
           <input className="bg-black/40 border border-white/10 rounded-lg px-3 py-2" placeholder="Full Name *" required />

@@ -1,4 +1,4 @@
-
+// app/blog/[slug]/page.tsx
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -54,7 +54,7 @@ export default async function BlogPost({ params }: Props) {
             )}
           </header>
 
-          {}
+          {/* MDX content */}
           {content}
         </article>
       </div>

@@ -1,4 +1,4 @@
-
+// lib/mdx.ts
 import fs from "fs/promises";
 import path from "path";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -9,11 +9,11 @@ import MDXComponents from "@/components/mdx/MDXComponents";
 
 export type PostFrontmatter = {
   title: string;
-  date: string;            
+  date: string;            // ISO
   author?: string;
   excerpt?: string;
   tags?: string[];
-  cover?: string;          
+  cover?: string;          // /images/...
 };
 
 const POSTS_DIR = path.join(process.cwd(), "content", "blog");
@@ -44,7 +44,7 @@ export async function getPostCompiled(slug: string) {
   const { content, frontmatter } = await compileMDX<PostFrontmatter>({
     source: file,
     options: {
-      parseFrontmatter: true, 
+      parseFrontmatter: true, // extracts YAML frontmatter
       mdxOptions: {
         remarkPlugins: [remarkGfm],
         rehypePlugins: [

@@ -1,4 +1,4 @@
-
+// components/mdx/MDXComponents.tsx
 import type { MDXComponents } from "mdx/types";
 
 function A(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {

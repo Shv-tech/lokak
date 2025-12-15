@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-
+// app/hackathon/page.tsx
 export default function HackathonPage() {
   return (
     <div className="container-x section">

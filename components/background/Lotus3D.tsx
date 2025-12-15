@@ -18,10 +18,10 @@ function LotusModel() {
   const currentY = useRef(0);
   const baseY = -0.6; 
   
-  
+  //Adjust these accordingly v
   const internalAnimation = useRef<number>(0);
   const internalAnimationFrame = useRef<number>(5);
-  
+  //Adjust these accordingly ^
 
   useEffect(() => {
     if (!gltf) return;

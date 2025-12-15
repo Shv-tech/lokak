@@ -1,4 +1,4 @@
-
+// lib/seo.ts
 import type { Metadata } from "next";
 
 export const SITE_NAME = "Lokakṣema 2026";
@@ -29,7 +29,7 @@ export const defaultMetadata: Metadata = {
   },
 };
 
-
+/** Create per-page metadata without repeating boilerplate. */
 export function pageMeta({
   title,
   description,

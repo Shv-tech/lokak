@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-
+// app/summit/page.tsx
 export default function SummitPage() {
   return (
     <div className="container-x section">

@@ -77,14 +77,14 @@ export default function MediaBackground({
       io.observe(el);
       return () => io.disconnect();
     }
-  }, [startAnimation]);
+  }, [startAnimation, switchRootMargin]);
 
-  // Dynamically import Lotus3D only when requested. Placing dynamic inside the
-  // component and guarded by `showLotus` prevents the module from being fetched
-  // when we want to hide it entirely.
-  const Lotus3D = showLotus
-    ? (useMemo(() => dynamic(() => import("./Lotus3D"), { ssr: false }), []) as any)
-    : null;
+  // Dynamically import Lotus3D only when requested. Wrap dynamic import in
+  // useMemo (called unconditionally) so React Hooks rules are respected.
+  const Lotus3D = useMemo(() => {
+    if (!showLotus) return null;
+    return dynamic(() => import("./Lotus3D"), { ssr: false });
+  }, [showLotus]);
 
   return (
     <>

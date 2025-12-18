@@ -10,31 +10,70 @@ const STATS: Array<[string, string]> = [
 ];
 
 export default function ByNumbers() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  };
+
   return (
     <motion.section
       className="section"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div className="container-x">
-        <h2 className="mb-6">Global Scale, Human Focus</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+        <motion.h2
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-6"
+        >
+          Global Scale, Human Focus
+        </motion.h2>
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-5 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {STATS.map(([value, label], i) => (
             <motion.div
               key={label}
-              className="rounded-xl border border-white/10 bg-black/40 p-6 text-center"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+              className="rounded-xl border border-white/10 bg-black/40 p-6 text-center cursor-pointer group"
+              variants={itemVariants}
+              style={{ willChange: 'auto' }}
             >
-              <div className="text-3xl font-semibold">{value}</div>
-              <div className="mt-2 text-sm text-neutral-300">{label}</div>
+              <div 
+                className="text-3xl font-semibold group-hover:text-purple-400 transition-colors duration-300"
+              >
+                {value}
+              </div>
+              <div 
+                className="mt-2 text-sm text-neutral-300"
+              >
+                {label}
+              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

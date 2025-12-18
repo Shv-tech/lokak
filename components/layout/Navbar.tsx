@@ -78,29 +78,40 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 					ref={menuRef}
 					initial={{
 						opacity: 0,
-						width: "0%",
+						scaleX: 0.28,
+						x: '-50%',
+						y: -8,
 						paddingTop: 0,
 						paddingBottom: 0,
 					}}
 					animate={{
 						opacity: 1,
-						width: "99vw",
+						scaleX: 1,
+						x: '-50%',
+						y: -8,
 						paddingTop: "0.75rem",
 						paddingBottom: "0.75rem",
 					}}
 					exit={{
 						opacity: 0,
-						width: "0%",
+						scaleX: 0.28,
+						x: '-50%',
+						y: -8,
 						paddingTop: 0,
 						paddingBottom: 0,
 					}}
 					transition={{
-						opacity: { duration: 0.3, ease: "easeInOut" },
-						width: { delay: 0.3, duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-						paddingTop: { delay: 0.3, duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-						paddingBottom: { delay: 0.3, duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+						opacity: { duration: 0.28, ease: "easeInOut" },
+						scaleX: { delay: 0.06, duration: 0.48, ease: [0.25, 0.46, 0.45, 0.94] },
+						paddingTop: { delay: 0.14, duration: 0.42, ease: [0.25, 0.46, 0.45, 0.94] },
+						paddingBottom: { delay: 0.14, duration: 0.42, ease: [0.25, 0.46, 0.45, 0.94] },
 					}}
-					className="fixed top-4 left-1/2 z-[60] -translate-x-1/2 -translate-y-2 backdrop-blur-md bg-white/20 text-white rounded-2xl shadow-2xl px-4 sm:px-16 h-16 flex items-center justify-between max-w-7xl border border-white/10 w-[95%]"
+					className="fixed top-4 left-1/2 z-[60] backdrop-blur-md bg-white/20 text-white rounded-2xl shadow-2xl px-4 sm:px-16 h-16 flex items-center justify-between max-w-7xl border border-white/10 w-[95%] transition-all duration-300 hover:rainbow-border"
+					style={{
+						animation: 'rainbow-glow 6s ease-in-out infinite',
+						transformOrigin: 'center top',
+						willChange: 'transform, opacity',
+					}}
 				>
 					<motion.div
 						className="flex items-center gap-3"

@@ -2,23 +2,62 @@
 import { motion } from "framer-motion";
 
 export default function WhySection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  };
+
   return (
     <motion.section
       className="section"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div className="container-x">
-        <h2 className="mb-4">India as the Neutral Global Convener</h2>
-        <p className="mb-6">
+        <motion.h2
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-4"
+        >
+          India as the Neutral Global Convener
+        </motion.h2>
+        <motion.p
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-6"
+        >
           Unlike bilateral summits or bloc-based conferences, Lokakṣema positions India as a
           trusted multilateral convener. We bring together stakeholders from the Global North
           and South for balanced, inclusive dialogue that transcends geopolitical divisions.
-        </p>
+        </motion.p>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <motion.div
+          className="grid md:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {[
             {
               t: "Innovation",
@@ -35,17 +74,15 @@ export default function WhySection() {
           ].map((x, i) => (
             <motion.div
               key={x.t}
-              className="rounded-xl bg-black/40 p-6 border border-white/10"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+              className="rounded-xl bg-black/40 p-6 border border-white/10 cursor-pointer group"
+              variants={itemVariants}
+              style={{ willChange: 'auto' }}
             >
               <h3 className="text-lg font-semibold">{x.t}</h3>
               <p className="mt-2 text-neutral-300">{x.d}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

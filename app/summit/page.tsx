@@ -75,7 +75,7 @@ export default function SummitPage() {
               strategy sessions.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-black/40 p-6">
+          <div className="rounded-xl card-rainbow bg-black/40 p-6">
             <h3 className="font-semibold">Evening Showcases (18:00–20:00)</h3>
             <p className="mt-2 text-neutral-300">
               Innovation demos, sponsor exhibits, hackathon updates, and
@@ -112,7 +112,7 @@ export default function SummitPage() {
           ].map(([title, desc]) => (
             <div
               key={title}
-              className="rounded-xl border border-white/10 bg-black/40 p-6"
+              className="rounded-xl card-rainbow bg-black/40 p-6"
             >
               <h3 className="font-semibold">{title}</h3>
               <p className="mt-2 text-neutral-300">{desc}</p>

@@ -3,50 +3,48 @@ import { motion } from "framer-motion";
 
 export default function WhySection() {
   const containerVariants = {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
-        staggerChildren: 0.12,
+        staggerChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, x: 30 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
+      x: 0,
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
     },
   };
 
   return (
-    <section className="relative overflow-hidden py-28">
-      {/* Background glow */}
-      <div className="pointer-events-none absolute inset-0 flex justify-center">
-        <div className="h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-3xl" />
-      </div>
-
-      <motion.div
-        className="relative container-x"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
+    <motion.section
+      className="section"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+    >
+      <div className="container-x">
         <motion.h2
           variants={itemVariants}
-          className="mb-4 max-w-3xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-4"
         >
           India as the Neutral Global Convener
         </motion.h2>
-
         <motion.p
           variants={itemVariants}
-          className="mb-10 max-w-3xl text-neutral-300"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-6"
         >
           Unlike bilateral summits or bloc-based conferences, Lokakṣema positions India as a
           trusted multilateral convener. We bring together stakeholders from the Global North
@@ -54,8 +52,11 @@ export default function WhySection() {
         </motion.p>
 
         <motion.div
-          className="grid gap-6 md:grid-cols-3"
+          className="grid md:grid-cols-3 gap-6"
           variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
         >
           {[
             {
@@ -70,27 +71,19 @@ export default function WhySection() {
               t: "Impact",
               d: "Real-world solutions reaching communities most in need, with measurable outcomes and sustainable deployment models.",
             },
-          ].map((x) => (
+          ].map((x, i) => (
             <motion.div
               key={x.t}
+              className="rounded-xl bg-black/40 p-6 border border-white/10 cursor-pointer group"
               variants={itemVariants}
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 180, damping: 18 }}
-              className="group relative rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md"
+              style={{ willChange: 'auto' }}
             >
-              {/* Card glow */}
-              <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition group-hover:opacity-100 bg-gradient-to-br from-indigo-500/10 to-transparent" />
-
-              <h3 className="relative text-lg font-semibold">
-                {x.t}
-              </h3>
-              <p className="relative mt-2 text-neutral-300">
-                {x.d}
-              </p>
+              <h3 className="text-lg font-semibold">{x.t}</h3>
+              <p className="mt-2 text-neutral-300">{x.d}</p>
             </motion.div>
           ))}
         </motion.div>
-      </motion.div>
-    </section>
+      </div>
+    </motion.section>
   );
 }

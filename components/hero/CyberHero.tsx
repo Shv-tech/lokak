@@ -32,7 +32,7 @@ export default function CyberHero() {
           className="mt-3 text-4xl md:text-6xl font-semibold tracking-tight max-w-4xl"
           variants={itemVariants}
         >
-          Where AI Meets Humanity&apos;s Future
+          Where AI Needs Humanity&apos;s Future
         </motion.h1>
         <motion.p
           className="mt-5 text-lg md:text-xl max-w-3xl text-neutral-200"
@@ -46,7 +46,7 @@ export default function CyberHero() {
           variants={itemVariants}
         >
           <Button href="/register">Register for Summit</Button>
-          <Button href="/sponsorship" data-variant="outline">Become a Sponsor</Button>
+          <Button href="/sponsorship" data-variant="outline">Become Sponsor</Button>
           <Button href="/hackathon" data-variant="outline">Join the Hackathon</Button>
         </motion.div>
       </motion.div>

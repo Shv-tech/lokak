@@ -6,28 +6,26 @@ export default function FeaturedTracksSection() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: 30 },
+    hidden: { opacity: 0, y: 24 },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
     },
   };
 
   return (
     <motion.section
-      className="section"
+      className="section relative"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.4 }}
     >
       <div className="container-x">
         <motion.h2
@@ -35,10 +33,11 @@ export default function FeaturedTracksSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="mb-6"
+          className="mb-8"
         >
           Three Pathways to Responsible AI
         </motion.h2>
+
         <motion.div
           className="grid md:grid-cols-3 gap-6"
           variants={containerVariants}
@@ -65,25 +64,30 @@ export default function FeaturedTracksSection() {
           ].map((track, i) => (
             <motion.div
               key={i}
-              className="rounded-xl bg-black/40 p-6 border border-white/10 cursor-pointer relative overflow-hidden group"
               variants={itemVariants}
-              style={{ willChange: 'auto' }}
+              whileHover={{ y: -6 }}
+              className="relative group rounded-xl border border-white/10 bg-black/40 p-6 overflow-hidden"
             >
-              {/* Animated background accent */}
-              <div
-                className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-purple-500/0 to-purple-500/0 group-hover:from-purple-500/10 group-hover:via-purple-500/5 group-hover:to-purple-500/20 transition-all duration-300"
+              {/* Ambient animated glow */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background:
+                    "radial-gradient(600px circle at 50% 30%, rgba(120,140,255,0.18), transparent 60%)",
+                }}
+                animate={{ opacity: [0.25, 0.45, 0.25] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               />
-              
-              <h3 
-                className="text-lg font-semibold relative z-10"
-              >
-                {track.title}
-              </h3>
-              <p 
-                className="mt-2 text-neutral-300 relative z-10"
-              >
-                {track.description}
-              </p>
+
+              {/* Content */}
+              <div className="relative z-10">
+                <h3 className="text-lg font-semibold text-white">
+                  {track.title}
+                </h3>
+                <p className="mt-2 text-neutral-300">
+                  {track.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

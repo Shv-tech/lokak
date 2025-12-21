@@ -61,14 +61,14 @@ export default function SummitPage() {
           Designed for Maximum Engagement
         </h2>
         <div className="mt-4 grid md:grid-cols-3 gap-6">
-          <div className="rounded-xl border border-white/10 bg-black/40 p-6">
+          <div className="rounded-xl card-rainbow bg-black/40 p-6">
             <h3 className="font-semibold">Morning Plenaries (09:00–12:30)</h3>
             <p className="mt-2 text-neutral-300">
               Grand challenges addressed by heads of state, Nobel laureates, AI
               pioneers, and civil society leaders.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-black/40 p-6">
+          <div className="rounded-xl card-rainbow bg-black/40 p-6">
             <h3 className="font-semibold">Parallel Track Sessions (14:00–17:30)</h3>
             <p className="mt-2 text-neutral-300">
               Deep-dive technical workshops, policy roundtables, and business

@@ -156,16 +156,14 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 								key={item.name}
 								variants={navButtonVariant}
 								whileHover={{
-									scale: 1.12,
-									color: "#8b5cf6",
-									backgroundColor: "rgba(139,92,246,0.08)",
-								}}
+										scale: 1.12,
+									}}
 								transition={{ type: "spring", stiffness: 400, damping: 22 }}
 								style={{ borderRadius: "0.5rem" }}
 							>
 								<Link
 									href={item.href}
-									className="px-2 py-1 transition-colors"
+									className="px-2 py-1 transition-colors underline-anim"
 									onClick={onNavClick(item.href)}
 								>
 									{item.name}
@@ -181,18 +179,18 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 							transition={{ type: "spring", stiffness: 400, damping: 22 }}
 							style={{ borderRadius: "0.5rem" }}
 						>
-							<Link
-								href="/register"
-								className="rounded-lg bg-black text-white px-3 py-2 font-medium hover:bg-neutral-800 transition"
-								onClick={onNavClick("/register")}
-							>
+								<Link
+									href="/register"
+									className="rounded-lg bg-black text-white px-3 py-2 font-medium hover:bg-neutral-800 transition lg:register-hover"
+									onClick={onNavClick("/register")}
+								>
 								Register
 							</Link>
 						</motion.div>
 					</motion.div>
 					<motion.button
 						aria-label="Open menu"
-						className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 hover:bg-neutral-100"
+						className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 hover:bg-neutral-100 text-black"
 						onClick={() => setOpen(!open)}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -214,7 +212,7 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: -10 }}
 								transition={{ duration: 0.2 }}
-								className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-xl border border-neutral-200 shadow-lg z-[70]"
+								className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-xl border border-neutral-200 shadow-lg z-[70] text-black"
 							>
 								<div className="w-full px-4 py-4">
 									<div className="grid gap-2 text-sm">
@@ -222,10 +220,8 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 											<motion.div
 												key={item.name}
 												whileHover={{
-													scale: 1.02,
-													color: "#8b5cf6",
-													backgroundColor: "rgba(139,92,246,0.08)",
-												}}
+														scale: 1.02,
+													}}
 												transition={{ type: "spring", stiffness: 400, damping: 22 }}
 												style={{ borderRadius: "0.5rem" }}
 											>

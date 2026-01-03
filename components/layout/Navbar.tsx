@@ -19,20 +19,30 @@ const NAV = [
 export default function Navbar({ startAnimation }: { startAnimation?: boolean }) {
 	const menuRef = useRef<HTMLDivElement>(null);
 	const [open, setOpen] = useState(false);
+	const [scrolled, setScrolled] = useState(false);
 	const [show, setShow] = useState(false);
+	const [isFading, setIsFading] = useState(false);
 	const router = useRouter();
 
 	useEffect(() => {
-		const timer = setTimeout(() => setShow(true), 1200);
+		const timer = setTimeout(() => setShow(true), 5000);
 		return () => clearTimeout(timer);
 	}, [startAnimation]);
 
 	useEffect(() => {
-		const handleClickOutside = (e: MouseEvent) => {
-			if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+		const onScroll = () => setScrolled(window.scrollY > 10);
+		onScroll();
+		window.addEventListener("scroll", onScroll);
+		return () => window.removeEventListener("scroll", onScroll);
+	}, []);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
 				setOpen(false);
 			}
 		};
+
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
@@ -40,7 +50,25 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 	const onNavClick = (href: string) => (e: React.MouseEvent) => {
 		e.preventDefault();
 		if (window.location.pathname === href) return;
-		router.push(href);
+		setIsFading(true);
+		setTimeout(() => {
+			router.push(href);
+			setIsFading(false);
+		}, 300);
+	};
+
+	const navButtonsVariants = {
+		hidden: {},
+		visible: {
+			transition: {
+				staggerChildren: 0.08,
+				delayChildren: startAnimation ? 0.3 : 0.6,
+			},
+		},
+	};
+	const navButtonVariant = {
+		hidden: { opacity: 0, y: 12 },
+		visible: { opacity: 1, y: 0, transition: { duration: 0.22, ease: "easeOut" } },
 	};
 
 	return (
@@ -48,117 +76,181 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 			{show && (
 				<motion.nav
 					ref={menuRef}
-					initial={{ opacity: 0, scaleX: 0.4, y: -12, x: "-50%" }}
-					animate={{ opacity: 1, scaleX: 1, y: 0, x: "-50%" }}
-					exit={{ opacity: 0, scaleX: 0.4, y: -12, x: "-50%" }}
-					transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-					className="fixed top-4 left-1/2 z-[60] w-[95%] max-w-7xl h-16 px-4 sm:px-16
-                     flex items-center justify-between
-                     rounded-2xl border border-white/10
-                     bg-black/60 backdrop-blur-xl
-                     text-white shadow-xl"
-					style={{ transformOrigin: "center top" }}
+					initial={{
+						opacity: 0,
+						scaleX: 0.28,
+						x: '-50%',
+						y: -8,
+						paddingTop: 0,
+						paddingBottom: 0,
+					}}
+					animate={{
+						opacity: 1,
+						scaleX: 1,
+						x: '-50%',
+						y: -8,
+						paddingTop: "0.75rem",
+						paddingBottom: "0.75rem",
+					}}
+					exit={{
+						opacity: 0,
+						scaleX: 0.28,
+						x: '-50%',
+						y: -8,
+						paddingTop: 0,
+						paddingBottom: 0,
+					}}
+					transition={{
+						opacity: { duration: 0.28, ease: "easeInOut" },
+						scaleX: { delay: 0.06, duration: 0.48, ease: [0.25, 0.46, 0.45, 0.94] },
+						paddingTop: { delay: 0.14, duration: 0.42, ease: [0.25, 0.46, 0.45, 0.94] },
+						paddingBottom: { delay: 0.14, duration: 0.42, ease: [0.25, 0.46, 0.45, 0.94] },
+					}}
+					className="fixed top-4 left-1/2 z-[60] backdrop-blur-md bg-white/20 text-white rounded-2xl shadow-2xl px-4 sm:px-16 h-16 flex items-center justify-between max-w-7xl border border-white/10 w-[95%] transition-all duration-300 hover:rainbow-border"
+					style={{
+						animation: 'rainbow-glow 6s ease-in-out infinite',
+						transformOrigin: 'center top',
+						willChange: 'transform, opacity',
+					}}
 				>
-					{/* Logo */}
-					<Link href="/" onClick={onNavClick("/")}>
-						<div className="flex items-center gap-2">
+					<motion.div
+						className="flex items-center gap-3"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 0.9, duration: 0.5 }}
+					>
+						<Link
+							href="/"
+							className="flex items-center gap-2"
+							onClick={onNavClick("/")}
+						>
+							<Image
+								src="/images/logo.png"
+								alt="Lokaksema"
+								width={40}
+								height={40}
+								className="h-10 w-10 block lg:hidden"
+								priority
+							/>
 							<Image
 								src="/images/logo.png"
 								alt="Lokaksema"
 								width={96}
 								height={24}
-								className="h-6 w-auto"
+								className="h-6 w-auto hidden lg:block"
 								priority
 							/>
 							<span className="hidden sm:inline font-semibold tracking-tight">
 								Lokaksema 2026
 							</span>
-						</div>
-					</Link>
-
-					{/* Desktop Nav */}
-					<div className="hidden lg:flex items-center gap-7 text-sm">
+						</Link>
+					</motion.div>
+					<motion.div
+						className="hidden lg:flex items-center gap-7 text-sm"
+						variants={navButtonsVariants}
+						initial="hidden"
+						animate="visible"
+					>
 						{NAV.map((item) => (
 							<motion.div
 								key={item.name}
-								whileHover={{ y: -2 }}
-								transition={{ type: "spring", stiffness: 300, damping: 20 }}
+								variants={navButtonVariant}
+								whileHover={{
+										scale: 1.12,
+									}}
+								transition={{ type: "spring", stiffness: 400, damping: 22 }}
+								style={{ borderRadius: "0.5rem" }}
 							>
 								<Link
 									href={item.href}
+									className="px-2 py-1 transition-colors underline-anim"
 									onClick={onNavClick(item.href)}
-									className="relative px-2 py-1 text-neutral-300 hover:text-indigo-400
-                             after:absolute after:left-0 after:-bottom-1 after:h-[1px]
-                             after:w-0 after:bg-indigo-400 after:transition-all
-                             hover:after:w-full"
 								>
 									{item.name}
 								</Link>
 							</motion.div>
 						))}
-
-						{/* CTA */}
-						<Link
-							href="/register"
-							onClick={onNavClick("/register")}
-							className="ml-2 rounded-lg bg-indigo-500 px-4 py-2
-                         font-medium text-white hover:bg-indigo-400 transition"
+						<motion.div
+							variants={navButtonVariant}
+							whileHover={{
+								scale: 1.08,
+								boxShadow: "0 2px 12px rgba(139,92,246,0.18)",
+							}}
+							transition={{ type: "spring", stiffness: 400, damping: 22 }}
+							style={{ borderRadius: "0.5rem" }}
 						>
-							Register
-						</Link>
-					</div>
-
-					{/* Mobile Menu Button */}
-					<button
+								<Link
+									href="/register"
+									className="rounded-lg bg-black text-white px-3 py-2 font-medium hover:bg-neutral-800 transition lg:register-hover"
+									onClick={onNavClick("/register")}
+								>
+								Register
+							</Link>
+						</motion.div>
+					</motion.div>
+					<motion.button
 						aria-label="Open menu"
-						className="lg:hidden h-9 w-9 flex items-center justify-center
-                       rounded-md border border-white/20 hover:bg-white/10"
+						className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 hover:bg-neutral-100 text-black"
 						onClick={() => setOpen(!open)}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 1.05, duration: 0.5 }}
 					>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-							<path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.5" />
+							<path
+								d="M3 6h18M3 12h18M3 18h18"
+								stroke="currentColor"
+								strokeWidth="1.5"
+							/>
 						</svg>
-					</button>
+					</motion.button>
 
-					{/* Mobile Menu */}
 					<AnimatePresence>
 						{open && (
 							<motion.div
-								initial={{ opacity: 0, y: -8 }}
+								initial={{ opacity: 0, y: -10 }}
 								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: -8 }}
+								exit={{ opacity: 0, y: -10 }}
 								transition={{ duration: 0.2 }}
-								className="absolute top-[calc(100%+8px)] left-0 right-0
-                           rounded-xl border border-white/10
-                           bg-black/80 backdrop-blur-xl shadow-lg"
+								className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-xl border border-neutral-200 shadow-lg z-[70] text-black"
 							>
-								<div className="px-4 py-4 grid gap-2 text-sm">
-									{NAV.map((item) => (
-										<Link
-											key={item.name}
-											href={item.href}
-											onClick={(e) => {
-												setOpen(false);
-												onNavClick(item.href)(e);
+								<div className="w-full px-4 py-4">
+									<div className="grid gap-2 text-sm">
+										{NAV.map((item) => (
+											<motion.div
+												key={item.name}
+												whileHover={{
+														scale: 1.02,
+													}}
+												transition={{ type: "spring", stiffness: 400, damping: 22 }}
+												style={{ borderRadius: "0.5rem" }}
+											>
+												<Link
+													href={item.href}
+													onClick={e => { setOpen(false); onNavClick(item.href)(e); }}
+													className="block rounded-md px-2 py-2 transition-colors"
+												>
+													{item.name}
+												</Link>
+											</motion.div>
+										))}
+										<motion.div
+											whileHover={{
+												scale: 1.02,
+												boxShadow: "0 2px 12px rgba(139,92,246,0.18)",
 											}}
-											className="rounded-md px-2 py-2 text-neutral-300
-                                 hover:bg-indigo-500/10 hover:text-indigo-400 transition"
+											transition={{ type: "spring", stiffness: 400, damping: 22 }}
+											style={{ borderRadius: "0.5rem" }}
 										>
-											{item.name}
-										</Link>
-									))}
-
-									<Link
-										href="/register"
-										onClick={(e) => {
-											setOpen(false);
-											onNavClick("/register")(e);
-										}}
-										className="mt-2 block rounded-md bg-indigo-500 px-3 py-2
-                               text-center font-medium text-white hover:bg-indigo-400 transition"
-									>
-										Register
-									</Link>
+											<Link
+												href="/register"
+												onClick={e => { setOpen(false); onNavClick("/register")(e); }}
+												className="mt-2 block rounded-md bg-black text-white px-3 py-2 font-medium hover:bg-neutral-800 transition text-center"
+											>
+												Register
+											</Link>
+										</motion.div>
+									</div>
 								</div>
 							</motion.div>
 						)}
@@ -168,3 +260,5 @@ export default function Navbar({ startAnimation }: { startAnimation?: boolean })
 		</AnimatePresence>
 	);
 }
+
+

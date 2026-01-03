@@ -439,3 +439,34 @@ button, a, input, textarea, select {
   position: relative;
   z-index: 1;
 }
+
+/* Animated underline for desktop nav links */
+.underline-anim {
+  position: relative;
+  display: inline-block;
+}
+.underline-anim::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, #a78bfa, #7c3aed);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 260ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  border-radius: 2px;
+}
+.underline-anim:hover::after,
+.underline-anim:focus::after {
+  transform: scaleX(1);
+}
+
+@media (min-width: 1024px) {
+  /* Slight lift + color shift for register button on large screens */
+  .lg\:register-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(124,58,237,0.12);
+  }
+}

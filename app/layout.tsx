@@ -4,7 +4,6 @@
 // app/layout.tsx
 import "./globals.css";
 import "@/styles/prose.css";
-
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -14,7 +13,7 @@ import CardGlow from "@/components/ui/CardGlow";
 import AppShell from "@/components/AppShell"; // new wrapper
 import SplashScreen from "@/components/SplashScreen"; // adjust path if needed
 import { useState, useEffect } from "react";
-
+import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -32,14 +31,13 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	const pathname = usePathname();
 	const [showSplash, setShowSplash] = useState(true);
-
 	useEffect(() => {
 		const timer = setTimeout(() => setShowSplash(false), 3400); 
 		return () => clearTimeout(timer);
 	}, []);
 
 	return (
-		<html lang="en" className="scroll-smooth">
+		<html lang="en">
 			<head>
 				{/* Favicon / icons (swap with your own if needed) */}
 				<link rel="icon" href="/favicon.ico" sizes="any" />
@@ -56,6 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 			</head>
 			<body className="bg-[#0a0b12] text-white antialiased">
+				
 				{/* Skip link for a11y */}
 				<a
 					href="#main"
@@ -82,11 +81,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<AppShell>
 					<CardGlow />
 					<Navbar />
+					<SmoothScrollProvider>
 					{/* pad for fixed nav */}
 					<main id="main">{children}</main>
 					<Footer />
+					</SmoothScrollProvider>
 					<RightClickMenu />
 				</AppShell>
+				
 			</body>
 		</html>
 	);

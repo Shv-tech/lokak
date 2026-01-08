@@ -2,8 +2,8 @@
 
 import { ReactNode, useRef } from "react";
 import gsap from "gsap";
-import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
-import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);

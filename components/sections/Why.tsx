@@ -1,62 +1,63 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function WhySection() {
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.12,
-      },
-    },
-  };
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      tl.from([headingRef.current, descriptionRef.current], {
+        opacity: 0,
+        x: 30,
         duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
+        stagger: 0.1,
+        ease: "power2.out",
+      }).from(
+        cardsRef.current,
+        {
+          opacity: 0,
+          x: 30,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "back.out(1.4)",
+        },
+        "-=0.3"
+      );
     },
-  };
+    { scope: containerRef }
+  );
 
   return (
-    <section className="relative overflow-hidden py-28">
-      {/* Background glow */}
-      <div className="pointer-events-none absolute inset-0 flex justify-center">
-        <div className="h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-3xl" />
-      </div>
-
-      <motion.div
-        className="relative container-x"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <motion.h2
-          variants={itemVariants}
-          className="mb-4 max-w-3xl"
-        >
+    <section className="section" ref={containerRef}>
+      <div className="container-x">
+        <h2 ref={headingRef} className="mb-4">
           India as the Neutral Global Convener
-        </motion.h2>
-
-        <motion.p
-          variants={itemVariants}
-          className="mb-10 max-w-3xl text-neutral-300"
-        >
+        </h2>
+        <p ref={descriptionRef} className="mb-6">
           Unlike bilateral summits or bloc-based conferences, Lokakṣema positions India as a
           trusted multilateral convener. We bring together stakeholders from the Global North
           and South for balanced, inclusive dialogue that transcends geopolitical divisions.
-        </motion.p>
+        </p>
 
-        <motion.div
-          className="grid gap-6 md:grid-cols-3"
-          variants={containerVariants}
-        >
+        <div className="grid md:grid-cols-3 gap-6">
           {[
             {
               t: "Innovation",
@@ -70,27 +71,19 @@ export default function WhySection() {
               t: "Impact",
               d: "Real-world solutions reaching communities most in need, with measurable outcomes and sustainable deployment models.",
             },
-          ].map((x) => (
-            <motion.div
+          ].map((x, i) => (
+            <div
               key={x.t}
-              variants={itemVariants}
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 180, damping: 18 }}
-              className="group relative rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md"
+              ref={(el) => { cardsRef.current[i] = el; }}
+              className="rounded-xl bg-black/40 p-6 border border-white/10 cursor-pointer group"
+              style={{ willChange: "transform, opacity" }}
             >
-              {/* Card glow */}
-              <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition group-hover:opacity-100 bg-gradient-to-br from-indigo-500/10 to-transparent" />
-
-              <h3 className="relative text-lg font-semibold">
-                {x.t}
-              </h3>
-              <p className="relative mt-2 text-neutral-300">
-                {x.d}
-              </p>
-            </motion.div>
+              <h3 className="text-lg font-semibold">{x.t}</h3>
+              <p className="mt-2 text-neutral-300">{x.d}</p>
+            </div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
